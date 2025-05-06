@@ -12,7 +12,14 @@ app.post('/scrape', async (req, res) => {
     const { curp } = req.body;
 
     try {
-        const browser = await puppeteer.launch({ headless: true });
+        // const browser = await puppeteer.launch({ headless: true });
+
+          // Iniciar Puppeteer con opciones para Railway
+        const browser = await puppeteer.launch({
+            args: ['--no-sandbox', '--disable-setuid-sandbox'],
+            headless: "new"
+        });
+        
         const page = await browser.newPage();
 
         await page.goto('https://www.gob.mx/curp/');
